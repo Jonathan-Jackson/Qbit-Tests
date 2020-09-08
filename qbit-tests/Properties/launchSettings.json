@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "qbit-tests": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
