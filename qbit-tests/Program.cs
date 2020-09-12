@@ -95,7 +95,23 @@ namespace qbit_tests {
                     WriteLineColored("Failed to pause torrent.", ConsoleColor.Red);
             }
 
-            // 5. Download a torrent via magnet
+            // 5. Get Paused torrent.
+            using (var request = new HttpRequestMessage(new HttpMethod("GET"), $"{address}/api/v2/torrents/info?filter=paused")) {
+                request.Headers.TryAddWithoutValidation("Cookie", $"{sid}");
+
+                response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode) {
+                    torrents = JsonSerializer.Deserialize<Torrent[]>(await response.Content.ReadAsStringAsync());
+                    if (torrents.Any())
+                        WriteLineColored($"Success getting paused torrent!", ConsoleColor.Green);
+                    else
+                        WriteLineColored($"Failed getting paused torrent!", ConsoleColor.Red);
+                }
+                else
+                    WriteLineColored($"Failed getting paused torrent!", ConsoleColor.Red);
+            }
+
+            // 6. Download a torrent via magnet
             using (var request = new HttpRequestMessage(new HttpMethod("POST"), $"{address}/api/v2/torrents/add")) {
                 request.Headers.TryAddWithoutValidation("Cookie", $"{sid}");
 
