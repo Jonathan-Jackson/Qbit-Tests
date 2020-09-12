@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -85,8 +86,6 @@ namespace qbit_tests {
             string hash = torrents.First().hash;
             using (var request = new HttpRequestMessage(new HttpMethod("GET"), $"{address}/api/v2/torrents/pause?hashes={hash}")) {
                 request.Headers.TryAddWithoutValidation("Cookie", $"{sid}");
-                request.Content = new StringContent(body, Encoding.UTF8, "application/x-www-form-urlencoded");
-                request.Content.Headers.Add("Content-Length", body.Length.ToString());
 
                 response = await client.SendAsync(request);
                 if (response.IsSuccessStatusCode) {
@@ -94,6 +93,18 @@ namespace qbit_tests {
                 }
                 else
                     WriteLineColored("Failed to pause torrent.", ConsoleColor.Red);
+            }
+
+            // 5. Download a torrent via magnet
+            using (var request = new HttpRequestMessage(new HttpMethod("POST"), $"{address}/api/v2/torrents/add")) {
+                request.Headers.TryAddWithoutValidation("Cookie", $"{sid}");
+
+                var multipartContent = new MultipartFormDataContent();
+                multipartContent.Add(new StringContent("magnet:?xt=urn:btih:XXBQBPIW7AV7HNS5DWAVME2MJMSLKMKC"), "urls");
+
+                request.Content = multipartContent;
+
+                response = await client.SendAsync(request);
             }
 
             WriteLineColored("Complete!", ConsoleColor.Blue);
