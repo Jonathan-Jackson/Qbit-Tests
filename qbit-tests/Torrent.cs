@@ -8,7 +8,7 @@
         public string category { get; set; }
         public ulong completed { get; set; }
         public ulong completion_on { get; set; }
-        public ulong dl_limit { get; set; }
+        public long dl_limit { get; set; }
         public ulong dlspeed { get; set; }
         public ulong downloaded { get; set; }
         public ulong downloaded_session { get; set; }
@@ -31,18 +31,18 @@
         public decimal ratio_limit { get; set; }
         public string save_path { get; set; }
         public long seeding_time_limit { get; set; }
-        public ulong seen_complete { get; set; }
+        public long seen_complete { get; set; }
         public bool seq_dl { get; set; }
-        public ulong size { get; set; }
+        public long size { get; set; }
         public string state { get; set; }
         public bool super_seeding { get; set; }
         public string tags { get; set; }
-        public ulong time_active { get; set; }
-        public ulong total_size { get; set; }
+        public long time_active { get; set; }
+        public long total_size { get; set; }
         public string tracker { get; set; }
         public long up_limit { get; set; }
         public ulong uploaded { get; set; }
-        public ulong uploaded_session { get; set; }
-        public ulong upspeed { get; set; }
+        public long uploaded_session { get; set; }
+        public long upspeed { get; set; }
     }
 }
