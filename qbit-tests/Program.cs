@@ -18,6 +18,11 @@ namespace qbit_tests {
             var userName = "admin";
             var password = "adminadmin";
             /////
+            ///
+
+            WriteLineColored("Address:" + address, ConsoleColor.White);
+            WriteLineColored("Username:" + userName, ConsoleColor.White);
+            WriteLineColored("Password:" + password, ConsoleColor.White);
 
             var handler = new HttpClientHandler();
             handler.UseCookies = false;
